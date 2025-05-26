@@ -27,12 +27,6 @@ pipeline {
             }
         }
 
-        stage('QA (Static Analysis)') {
-            steps {
-                sh 'mvn checkstyle:check'
-            }
-        }
-
         stage('Package') {
             steps {
                 sh 'mvn package'

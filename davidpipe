@@ -42,9 +42,7 @@ pipeline {
                 script {
                     def warFile = sh(script: "ls target/*.war", returnStdout: true).trim()
                     sh """
-                    curl -v -u admin:admin123 \
-                      --upload-file "${warFile}" \
-                      "${TOMCAT_URL}/manager/text/deploy?path=${DEPLOY_PATH}&update=true"
+                     curl --upload-file target/*.war "http://admin:admin123@13.40.81.54:8080/manager/text/deploy?path=/addressbook&update=true"
                     """
                 }
             }

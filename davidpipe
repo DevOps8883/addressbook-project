@@ -3,14 +3,15 @@ pipeline {
 
     environment {
         // Define sensitive data securely using Jenkins credentials
-        TOMCAT_URL = 'http://13.40.176.18:8080'
-        DEPLOY_PATH = '/myapp'  // Change this to your app context path
+        TOMCAT_URL = 'http://13.40.81.54:8080'
+        DEPLOY_PATH = '/addressbook'  // Change this to your app context path
+        WAR_FILE = 'target/addressbook.war'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git', branch: 'main'
+                git url: 'https://github.com/DevOps8883/addressbook-project.git', branch: 'master'
             }
         }
 
@@ -47,7 +48,7 @@ pipeline {
                 script {
                     def warFile = sh(script: "ls target/*.war", returnStdout: true).trim()
                     sh """
-                    curl -v -u ${TOMCAT_CRED_USR}:${TOMCAT_CRED_PSW} \
+                    curl -v -u admin:admin123 \
                       --upload-file "${warFile}" \
                       "${TOMCAT_URL}/manager/text/deploy?path=${DEPLOY_PATH}&update=true"
                     """

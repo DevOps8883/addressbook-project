@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define sensitive data securely using Jenkins credentials
-        TOMCAT_URL = 'http://13.40.81.54:8080'
+        TOMCAT_URL = 'http://3.8.142.30:8081'
         DEPLOY_PATH = '/addressbook'  // Change this to your app context path
         WAR_FILE = 'target/addressbook.war'
     }
@@ -42,7 +42,7 @@ pipeline {
                 script {
                     def warFile = sh(script: "ls target/*.war", returnStdout: true).trim()
                     sh """
-                     curl --upload-file target/*.war "http://admin:admin123@13.40.81.54:8080/manager/text/deploy?path=/addressbook&update=true"
+                     curl --upload-file target/*.war "http://admin:bitnami@3.8.142.30:8081/manager/text/deploy?path=/addressbook&update=true"
                     """
                 }
             }
